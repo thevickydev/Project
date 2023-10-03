@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Quotes</title>
+</head>
+<body style="background-color: rgb(2, 37, 39);"><legend style="align-content: center; margin-left: 20%; margin-right: 20%; margin-top: 20%; margin-bottom: 10%;">
+  <fieldset style=" text-align: center; margin: auto; background-color: rgb(235, 21, 39)">
+  <div id="quotes" style="font-size: 50px; color: aliceblue; font-weight: bold;"></div><br>
+  <div id="author" style="font-size: 15px; color: aliceblue; font-weight: lighter;"></div><br>
+    <button id="new" style="border-radius: 3px; border-color: aliceblue; cursor: pointer; background-color: black; color:aliceblue;">New</button></fieldset></legend>
+    <script>  
+    let object = "";
+    const quotes = document.getElementById("quotes");
+    const author = document.getElementById("author");
+    const temp = document.getElementById("new");
+    const newRandom = ()=>{
+     var num = Math.floor(Math.random()*10);
+     let temp = object[num];
+     quotes.innerText = `"${temp.text}"`;
+     if(temp == null){
+     (author.innerText = `UnKnown`);
+    }else{
+      for(let i=0; i<temp["author"].length-9; i++){
+     (author.innerText = `'${temp.author}'`);
+    }
+    }
+    };
+      const getQuotes = async()=>{
+        const api = "https://type.fit/api/quotes";
+        try{
+          let data = await fetch(api);
+          object = await data.json();
+         newRandom();
+        } catch(error){}
+      };
+      temp.addEventListener("click",newRandom);
+      getQuotes();
+    </script>
+</body>
+</html>
